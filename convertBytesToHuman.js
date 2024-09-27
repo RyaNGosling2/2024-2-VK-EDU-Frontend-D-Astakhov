@@ -18,14 +18,15 @@
  */
 
 export default function convertBytesToHuman(bytes) {
-  if (typeof bytes !== 'number' || bytes < 0) {return false;}
+  if (typeof bytes !== 'number' || bytes < 0 || isNaN(bytes) || !isFinite(bytes)){
+    return false;
+    }
   const unit = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
   let i = 0;
-  while (bytes >= 1024 && i < 5)
+  while (bytes >= 1024 && i < unit.length)
   {
     bytes /= 1024;
     i++;
   }
-  const cutBts = bytes.toFixed(2).replace(/\.00$/, '');
-  return `${cutBts} ${unit[i]}`;
+  return `${Number(bytes.toFixed(2))} ${unit[i]}`;
 }
