@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title>Send a message</title>
+		<link rel="stylesheet" type="text/css" href="index.css">
+	<link href="style.css" rel="stylesheet"></head>
+	<body>
+		<div class="head-cont">
+			<a href="#"><img class="img-arrow" src="img/arrow.png"></a>
+			<a href="#"><img class="img-interni" src="img/interni.png"></a>
+			<div class="Chatters-Name">Jokerge M.</div>
+			<div class="Chatters-last-time">Никогда не был в сети...</div>
+			<a href="#"><img class="img-search" src="img/search.png"></a>
+			<a href="#"><img class="img-more" src="img/more.png"></a>
+		</div>
+		<div class="chat-cont" tabindex="-1"></div>
+		<div class="send-cont">
+			<a href="#"><img class="img-smile" src="img/smile.png"></a>
+			<input class="form-input" placeholder="Введите сообщение" type="text">
+			<a href="#"><img class="img-clip" src="img/paperclip.png"></a>
+			<a href="#" onclick="sendMessage();"><img class="img-send" src="img/send.png"></a>
+		</div>
+
+		<script>
+			const FormInp = document.querySelector('.form-input');
+			const messagesContainer = document.querySelector('.chat-cont');
+
+
+			loadMessages();
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+			//localStorage.clear();
+    	FormInp.addEventListener('keyup', (event) => {
+      	if (event.key === 'Enter') {
+        	sendMessage();
+      	}
+    	});
+
+    	function sendMessage() {
+      	const messageText = FormInp.value.trim();
+      	if (messageText !== '') {
+        	const message = {
+          	sender: "Aboba",
+          	text: messageText,
+          	timestamp: Date.now() // Время отправки в миллисекундах
+        	};
+        const messageElement = createMessageElement(message);
+        messagesContainer.appendChild(messageElement);
+        FormInp.value = ''; // Очистка поля ввода
+        saveMessage(message);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      	}
+    	}
+
+    // Создание элемента сообщения
+    function createMessageElement(message) {
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('message');
+      const time = new Date(message.timestamp).toLocaleString().substring(11, 17);
+      messageElement.innerHTML = `
+        <span class="message-sender"><p>` + message.sender + `:</p></span>
+        <span class="message-text">` + message.text `</span>
+      	<span class="message-time"><p>`+ time+ `</p></span>
+      `;
+      return messageElement;
+    }
+
+    // Сохранение сообщения в localStorage
+    function saveMessage(message) {
+      let messages = JSON.parse(localStorage.getItem('messages')) || [];
+      messages.push(message);
+      localStorage.setItem('messages', JSON.stringify(messages));
+    }
+
+    // Загрузка сообщений из localStorage
+    function loadMessages() {
+      const messages = JSON.parse(localStorage.getItem('messages')) || [];
+      messages.forEach(message => {
+        const messageElement = createMessageElement(message);
+        messagesContainer.appendChild(messageElement);
+      });
+    }
+		</script>
+	<script type="text/javascript" src="bundle.js"></script></body>
+</html>
