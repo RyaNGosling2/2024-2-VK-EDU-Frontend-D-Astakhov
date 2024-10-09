@@ -171,12 +171,15 @@ input[type="text"] {
     }
     .img-clip {
         right: 13%;
+        scale: 50%;
     }
     .img-send {
         right: -2%;
+        scale: 50%;
     }
     .img-smile {
         left: -2%;
+        scale: 50%;
     }
     .chat-cont{
         height: 79%;
@@ -188,19 +191,22 @@ input[type="text"] {
     }
     .message {
         height: 10%;
-        font-size: 35px;
+        font-size: 30px;
     }
     .message-time {
         font-size: 20px;
     }   
     .img-arrow {
         left: -2%;
+        scale: 50%;
     }
     .img-search {
         right: 10%;
+        scale: 50%;
     }
     .img-more {
         right: -2%;
+        scale: 50%;
     }
     .img-interni {
         left: 15%;

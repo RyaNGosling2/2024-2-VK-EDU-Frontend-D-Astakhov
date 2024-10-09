@@ -26,7 +26,6 @@
 			const FormInp = document.querySelector('.form-input');
 			const messagesContainer = document.querySelector('.chat-cont');
 
-
 			loadMessages();
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
 			//localStorage.clear();
@@ -56,12 +55,12 @@
     function createMessageElement(message) {
       const messageElement = document.createElement('div');
       messageElement.classList.add('message');
+      if (message.timestamp){
       const time = new Date(message.timestamp).toLocaleString().substring(11, 17);
-      messageElement.innerHTML = `
-        <span class="message-sender"><p>` + message.sender + `:</p></span>
-        <span class="message-text">` + message.text `</span>
-      	<span class="message-time"><p>`+ time+ `</p></span>
-      `;
+      const cm1 = '<span class="message-sender"><p>'+ message.sender + ':</p></span>';
+      const cm2 = '<span class="message-sender"><p>'+ message.text + '</p></span>';
+      const cm3 = '<span class="message-sender"><p>'+ time + '</p></span>';
+      messageElement.innerHTML = cm1 + cm2 + cm3;}
       return messageElement;
     }
 
