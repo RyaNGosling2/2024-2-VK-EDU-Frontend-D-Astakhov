@@ -53,7 +53,10 @@ module.exports = {
                         loader: 'css-loader',
                     },
                 ],
-            },
+            },{
+    test: /\.(png|jpg|jpeg)$/,
+    use: [{  loader: ’file-loader' }]
+},
         ],
     },
     plugins: [
